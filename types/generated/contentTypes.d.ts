@@ -362,40 +362,26 @@ export interface AdminTransferTokenPermission extends Schema.CollectionType {
   };
 }
 
-export interface ApiBoardBoard extends Schema.CollectionType {
-  collectionName: 'boards';
+export interface ApiPostPost extends Schema.CollectionType {
+  collectionName: 'posts';
   info: {
-    singularName: 'board';
-    pluralName: 'boards';
-    displayName: 'Board';
-    description: '';
+    singularName: 'post';
+    pluralName: 'posts';
+    displayName: 'Post';
   };
   options: {
     draftAndPublish: true;
   };
   attributes: {
     title: Attribute.String;
-    users_permissions_user: Attribute.Relation<
-      'api::board.board',
-      'manyToOne',
-      'plugin::users-permissions.user'
-    >;
-    content: Attribute.RichText;
-    writer: Attribute.String & Attribute.Required;
+    writer: Attribute.String;
+    content: Attribute.String;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
-    createdBy: Attribute.Relation<
-      'api::board.board',
-      'oneToOne',
-      'admin::user'
-    > &
+    createdBy: Attribute.Relation<'api::post.post', 'oneToOne', 'admin::user'> &
       Attribute.Private;
-    updatedBy: Attribute.Relation<
-      'api::board.board',
-      'oneToOne',
-      'admin::user'
-    > &
+    updatedBy: Attribute.Relation<'api::post.post', 'oneToOne', 'admin::user'> &
       Attribute.Private;
   };
 }
@@ -808,14 +794,6 @@ export interface PluginUsersPermissionsUser extends Schema.CollectionType {
       'manyToOne',
       'plugin::users-permissions.role'
     >;
-    boards: Attribute.Relation<
-      'plugin::users-permissions.user',
-      'oneToMany',
-      'api::board.board'
-    >;
-    phoneNumber: Attribute.String;
-    gender: Attribute.String & Attribute.Required;
-    profileImage: Attribute.String;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     createdBy: Attribute.Relation<
@@ -843,7 +821,7 @@ declare module '@strapi/types' {
       'admin::api-token-permission': AdminApiTokenPermission;
       'admin::transfer-token': AdminTransferToken;
       'admin::transfer-token-permission': AdminTransferTokenPermission;
-      'api::board.board': ApiBoardBoard;
+      'api::post.post': ApiPostPost;
       'plugin::upload.file': PluginUploadFile;
       'plugin::upload.folder': PluginUploadFolder;
       'plugin::content-releases.release': PluginContentReleasesRelease;

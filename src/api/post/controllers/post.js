@@ -1,9 +1,9 @@
 'use strict';
 
 /**
- * board controller
+ * post controller
  */
 
 const { createCoreController } = require('@strapi/strapi').factories;
 
-module.exports = createCoreController('api::board.board');
+module.exports = createCoreController('api::post.post');
